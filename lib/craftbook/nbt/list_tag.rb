@@ -54,7 +54,8 @@ module CraftBook
         child_type = hash[:child_type]
         raise(ParseError, "invalid array") unless values.is_a?(Array)
         raise(ParseError, "invalid child type") unless !child_type.nil? & child_type.between?(TYPE_END, TYPE_LONG_ARRAY)
-
+        return if values.empty?
+        
         klass = Tag.class_from_type(child_type)
         values.each do |value|
           child = klass.allocate
